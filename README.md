@@ -1,4 +1,4 @@
-# DOJ Application Portal - README (po polsku)
+# DOJ Application Portal
 
 # Demo
 
