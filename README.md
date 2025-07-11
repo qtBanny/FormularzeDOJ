@@ -1,6 +1,6 @@
 # DOJ Application Portal - README (po polsku)
 
-##Demo
+# Demo
 
 [Demo strony](https://sites.google.com/view/ldepartment-of-justice?usp=sharing)
 
